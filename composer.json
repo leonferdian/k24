@@ -1,0 +1,19 @@
+{
+	"description": "Tools Management Modem & Simcard",
+	"name": "santosahw/simbox",
+	"type": "project",
+	"homepage": "https://simbox.bcast.xyz",
+	"license": "MIT",
+	"support": {},
+	"require": {
+		"php": ">=5.3.7",
+		"vlucas/phpdotenv": "^3.4"
+	},
+	"suggest": {
+		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
+	},
+	"require-dev": {
+		"mikey179/vfsStream": "1.1.*",
+		"phpunit/phpunit": "4.* || 5.*"
+	}
+}
