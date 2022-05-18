@@ -40,29 +40,40 @@ class MEmber extends MY_Controller
 
 	public function register() {
 
-		$nama = isset($_POST['nama']) ? trim($_POST['nama']) : '';
-		$password = isset($_POST['password']) ? trim($_POST['password']) : '';
-		$phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
-		$tgl_lahir = isset($_POST['tgl_lahir']) ? trim($_POST['tgl_lahir']) : '';
-		$email = isset($_POST['email']) ? trim($_POST['email']) : '';
-		$nik = isset($_POST['nik']) ? trim($_POST['nik']) : '';
-		$foto = isset($_POST['foto']) ? trim($_POST['foto']) : '';
-		$nama_foto = 'foto-'.$nik.'-'.$tgl_lahir;
-		$gender = isset($_POST['gender']) ? trim($_POST['gender']) : '';
-
-		$data = array(
-			'nama' => $nama,
-			'password' => $password,
-			'phone' => $phone,
-			'tgl_lahir' > $tgl_lahir,
-			'email' => $email,
-			'nik' => $nik,
-			'foto' => $nama_foto,
-			'gender' => $gender
-		);
-
 		if (count($_POST)) {
-			$sql = "INSERT INTO admin_menus (".implode(',', array_keys($data)).") VALUES ('".implode("','", array_values($data))."')";
+			$nama = isset($_POST['nama']) ? trim($_POST['nama']) : '';
+			$options = [
+				'cost' => 12,
+			];
+			
+			$password = isset($_POST['password']) ? password_hash(trim($_POST['password']), PASSWORD_BCRYPT, $options) : '';
+			$phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
+			$tgl_lahir = isset($_POST['tgl_lahir']) ? trim($_POST['tgl_lahir']) : '';
+			$email = isset($_POST['email']) ? trim($_POST['email']) : '';
+			$nik = isset($_POST['nik']) ? trim($_POST['nik']) : '';
+			$foto = $_FILES['foto']['tmp_name'];
+			$nama_foto = 'foto-'.$nik.'-'.$tgl_lahir;
+			$gender = isset($_POST['gender']) ? trim($_POST['gender']) : '';
+
+			$data = array(
+				'nama' => $nama,
+				'password' => $password,
+				'phone' => $phone,
+				'tgl_lahir' > $tgl_lahir,
+				'email' => $email,
+				'nik' => $nik,
+				'foto' => $nama_foto,
+				'gender' => $gender
+			);
+
+			if (move_uploaded_file($foto, site_url('images/avatar/'.$nama_foto))) {
+				$sql = "INSERT INTO admin_menus (".implode(',', array_keys($data)).") VALUES ('".implode("','", array_values($data))."')";
+				$this->db->query($sql);
+				redirect('member');
+			} else {
+				echo "Gagal upload file";
+			}
+			
 		}
 		
 	}
