@@ -40,4 +40,18 @@ class Menu_model extends CI_Model {
         $row = $query->result();
         return $row;
     }
+
+    public function menu($table, $child = '')
+    {
+        $query = $this->db->query("SELECT * FROM $table WHERE status = 1 $child");
+        $row = $query->result();
+        return $row;
+    }
+
+    public function submenu($table, $parent_id)
+    {
+        $query = $this->db->query("SELECT * FROM $table WHERE parent_id = $parent_id AND status = 1");
+        $row = $query->result();
+        return $row;
+    }
 }

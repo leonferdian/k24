@@ -1,12 +1,12 @@
 {
-	"description": "Tools Management Modem & Simcard",
-	"name": "santosahw/simbox",
+	"description": "Nutapos Test",
+	"name": "leonferdian/nutapos",
 	"type": "project",
-	"homepage": "https://simbox.bcast.xyz",
+	"homepage": "https://localhost",
 	"license": "MIT",
 	"support": {},
 	"require": {
-		"php": ">=5.3.7",
+		"php": ">=7.3.0",
 		"vlucas/phpdotenv": "^3.4"
 	},
 	"suggest": {

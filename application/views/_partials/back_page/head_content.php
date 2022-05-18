@@ -4,7 +4,7 @@
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
 								<li>
-									<a href="<?php echo site_url('crew') ?>">
+									<a href="<?php echo site_url() ?>">
 										<i class="fa fa-home"></i>
 									</a>
 								</li>

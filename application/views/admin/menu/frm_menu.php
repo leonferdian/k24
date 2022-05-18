@@ -1,91 +1,87 @@
-<?php $page = site_url('/'.$parent_title.'/'.$page_title); ?>
-<?php $this->load->view('_partials/head');?>
-<?php $this->load->view('_partials/menu');?>
-    <!-- Right Panel -->
-    <div id="right-panel" class="right-panel">
-        <?php $this->load->view('_partials/page_header');?>
+<?php $this->load->view('_partials/back_page/head');?>		
+	<section class="body">
+		<?php $this->load->view('_partials/back_page/page_header');?>
+			<div class="inner-wrapper">
+				<?php $this->load->view('_partials/back_page/menu');?>
+				<section role="main" class="content-body">
+					<?php $this->load->view('_partials/back_page/head_content');?>
 
-        <div class="breadcrumbs">
-            <div class="col-sm-4">
-                <div class="page-header float-left">
-                    <div class="page-title">
-                        <h1><?php echo $page_title ?></h1>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li class="active"><i class="ti-home"></i> <?php echo str_replace(site_url(),' / ',$page) ?></li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="content mt-3">
-            <div class="animated fadeIn">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-header">Menu</div>
-                            <div class="card-body card-block">
-                                <?php echo form_open('admin/menu/'.(isset($forms['id'])?'edit/'.$forms['id']:'add'), array('class'=>'form-horizontal'));?>
+					<!-- start: page -->
+                        <section class="panel">
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<a href="#" class="fa fa-caret-down"></a>
+									<a href="#" class="fa fa-times"></a>
+								</div>
+						
+								<h2 class="panel-title">Menu</h2>
+							</header>
+							<div class="panel-body">
+                                <?php echo form_open('admin/menu/'.(isset($forms['id'])?'edit/'.$forms['id']:'add'), array('class'=>'form-horizontal form-bordered', 'id'=>'submit_form'));?>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Title</label>
+										<div class="col-md-6">
+                                            <div class="input-group btn-group<?php if(isset($errors['title'])) echo ' has-error';?>">
+                                                <div class="input-group-addon"><i class="fa fa-font"></i></div>
+                                                <input type="text" id="title" name="title" placeholder="Title" class="form-control" value="<?php if(isset($forms['title'])) echo html_escape($forms['title']);?>">
+                                            </div>
+										</div>
+                                    </div>
                                     <div class="form-group">
-                                        <label>Title</label>
-                                        <div class="input-group<?php if(isset($errors['title'])) echo ' has-error';?>">
-                                            <div class="input-group-addon"><i class="fa fa-font"></i></div>
-                                            <input type="text" id="title" name="title" placeholder="Title" class="form-control" value="<?php if(isset($forms['title'])) echo html_escape($forms['title']);?>">
+										<label class="col-md-3 control-label">Parent</label>
+										<div class="col-md-6">
+                                            <div class="input-group btn-group<?php if(isset($errors['parent_id'])) echo ' has-error';?>">
+                                                <div class="input-group-addon"><i class="fa fa-folder-o"></i></div>
+                                                <select name="parent_id" id="parent_id" class="form-control populatel">
+                                                    <optgroup label="Select parent menu">
+                                                        <?php echo $op_parents ?>
+                                                    </optgroup>
+                                                </select>
+                                            </div>
+										</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Url</label>
+                                        <div class="col-md-6">
+                                            <div class="input-group btn-group<?php if(isset($errors['url'])) echo ' has-error';?>">
+                                                <div class="input-group-addon"><i class="fa fa-chain"></i></div>
+                                                <input type="text" id="url" name="url" class="form-control" placeholder="url" value="<?php if(isset($forms['url'])) echo html_escape($forms['url']);?>">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Parent</label>
-                                        <div class="input-group<?php if(isset($errors['parent_id'])) echo ' has-error';?>">
-                                            <div class="input-group-addon"><i class="fa fa-folder-o"></i></div>
-                                            <select name="parent_id" id="parent_id" class="form-control">
-                                            <?php echo $op_parents ?>
-                                            </select>
+                                        <label class="col-md-3 control-label">Icon</label>
+                                        <div class="col-md-6">
+                                            <div class="input-group btn-group<?php if(isset($errors['icon'])) echo ' has-error';?>">
+                                                <div class="input-group-addon"><i class="fa fa-smile-o"></i></div>
+                                                <input name="icon" data-placement="bottomRight" class="form-control icp icp-auto" placeholder="icon" value="<?php if(isset($forms['icon'])) echo html_escape($forms['icon']);?>" type="text"/>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Url</label>
-                                        <div class="input-group<?php if(isset($errors['url'])) echo ' has-error';?>">
-                                            <div class="input-group-addon"><i class="fa fa-chain"></i></div>
-                                            <input type="text" id="url" name="url" class="form-control" placeholder="url" value="<?php if(isset($forms['url'])) echo html_escape($forms['url']);?>">
-                                        </div>
-                                    </div>
-                                    <div class="form-group<?php if(isset($errors['icon'])) echo ' has-error';?>">
-                                        <label>Icon</label>
-                                        <div class="input-group">
-                                            <div class="input-group-addon"><i class="fa fa-smile-o"></i></div>
-                                            <input name="icon" data-placement="bottomRight" class="form-control icp icp-auto" placeholder="icon" value="<?php if(isset($forms['icon'])) echo html_escape($forms['icon']);?>"
-                                                type="text"/>
-                                            <span class="input-group-addon fa fa-archive"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <label>
-                                                <input type="checkbox" name="status" value="1" class="flat-red"<?php if(isset($forms['status']) && $forms['status']) echo ' checked';?>>
-                                                Active
-                                            </label>
+                                        <label class="col-md-3 control-label"></label>
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <label>
+                                                    <input type="checkbox" name="status" value="1" class="flat-red"<?php if(isset($forms['status']) && $forms['status']) echo ' checked';?>>
+                                                    Active
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-actions form-group">
-                                        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-dot-circle-o"></i> Save</button>
-                                        <a href="<?php echo site_url('admin/menu');?>" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> Cancel</a>
+                                        <label class="col-md-3 control-label"></label>
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-dot-circle-o"></i> Save</button>
+                                            <a href="<?php echo site_url('admin/menu');?>" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> Cancel</a>
+                                        </div>
                                     </div>
                                 <?php echo form_close(); ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- .animated -->
-        </div><!-- .content -->
-
-    </div><!-- /#right-panel -->
-    <!-- Right Panel -->
-
-<?php $this->load->view('_partials/page_footer');?>
-<?php $this->load->view('_partials/foot');?>
+							</div>
+						</section>
+					<!-- end: page -->
+				</section>
+			</div>
+		<?php $this->load->view('_partials/back_page/page_footer');?>
+	</section>
+<?php $this->load->view('_partials/back_page/foot');?>

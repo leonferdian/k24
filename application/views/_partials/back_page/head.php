@@ -5,11 +5,11 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title><?php echo isset($page_title) ? $page_title : 'Creative Digiads' ?></title>
-		<meta name="keywords" content="Default CMS" />
+		<title><?php echo isset($page_title) ? $page_title : 'Online Shop' ?></title>
+		<meta name="keywords" content="Event Organizer" />
 		<meta name="description" content="Creative Digiads Product">
 		<meta name="author" content="creativedigiads.com">
-
+        <link rel="icon" href="<?php echo site_url('favicon.png') ?>" sizes="192x192" />
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
@@ -27,7 +27,9 @@
 		<link rel="stylesheet" href="<?php echo site_url('"assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css'); ?>" />
         <link rel="stylesheet" href="<?php echo site_url('assets/vendor/morris/morris.css'); ?>" />
 		<link rel="stylesheet" href="<?php echo site_url('assets/vendor/select2/select2.css'); ?>" />
-		<link rel="stylesheet" href="<?php echo site_url('assets/vendor/jquery-datatables-bs3/assets/css/datatables.css'); ?>" />
+        <link rel="stylesheet" href="<?php echo site_url('assets/vendor/jquery-datatables-bs3/assets/css/datatables.css'); ?>" />
+
+        <link href="<?php echo site_url('assets/plugins/daterangepicker/daterangepicker.css');?>" rel="stylesheet" />
 
 		<!-- Theme CSS -->
 		<link rel="stylesheet" href="<?php echo site_url('assets/stylesheets/theme.css'); ?>" />

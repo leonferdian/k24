@@ -14,7 +14,7 @@
                         <nav id="menu" class="nav-main" role="navigation">
                             <ul class="nav nav-main">
                             <?php
-                                $query = $this->db->query("SELECT * FROM admin_menus WHERE status = 1 AND parent_id = 1 ORDER BY parent_id");
+                                $query = $this->db->query("SELECT * FROM admin_menus WHERE status = 1 ORDER BY id");
                                 foreach ($query->result() as $row)
                                 {
                                     $title = trim($row->title);
@@ -23,7 +23,7 @@
                                     $parent_id = $row->parent_id;
                                     $id = $row->id;
                             ?>
-                                <?php if ($parent_id == 1): ?>
+                                <?php if ($parent_id == 0): ?>
                                 <li class="nav-active">
                                     <a href="<?php echo site_url($url) ?>">
                                         <i class="fa <?php echo $icon ?>" aria-hidden="true"></i>

@@ -20,9 +20,9 @@ class Users_model extends CI_Model {
         return $groups;
     }
 
-    public function select_groups()
+    public function select_groups($group_id = 1)
     {
-        $query = $this->db->query("SELECT * FROM groups WHERE 1");
+        $query = $this->db->query("SELECT * FROM groups WHERE $group_id");
         $row = $query->result();
         return $row;
     }

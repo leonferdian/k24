@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Bulan Mei 2022 pada 19.12
--- Versi server: 10.4.6-MariaDB
--- Versi PHP: 7.3.9
+-- Generation Time: May 18, 2022 at 12:26 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -24,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `admin_menus`
+-- Table structure for table `admin_menus`
 --
 
 CREATE TABLE `admin_menus` (
@@ -44,21 +45,23 @@ CREATE TABLE `admin_menus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `admin_menus`
+-- Dumping data for table `admin_menus`
 --
 
 INSERT INTO `admin_menus` (`id`, `title`, `icon`, `url`, `scheme`, `host`, `path`, `qs`, `child`, `status`, `parent_id`, `created`, `updated`) VALUES
-(1, 'Dashboard', 'fa-home', 'crew', '', '', '', '', 1, 1, 1, '2018-09-15 23:21:15', 1537058756),
-(5, 'Settings', 'fa-cogs', '#', '', '', '', '', 1, 1, 2, '2020-04-08 04:05:17', 0),
+(1, 'Dashboard', 'fa-home', '', '', '', '', '', 1, 1, 1, '2018-09-15 23:21:15', 2022),
+(5, 'Settings', 'fa-cogs', '#', '', '', '', '', 1, 0, 2, '2020-04-08 04:05:17', 0),
 (6, 'Users Backend', 'fa-user', '#', '', '', '', '', 2, 1, 2, '2020-04-08 04:24:56', 0),
 (12, 'Admin Menu', 'fa-th-large', 'admin/menu', '', '', '', '', 0, 1, 5, '2020-04-08 05:09:26', 0),
 (13, 'Admin Users', 'ti-key', 'admin/users', '', '', '', '', 0, 1, 6, '2020-04-08 05:09:26', 0),
-(14, 'Admin Groups', 'ti-layers-alt', 'admin/users/groups', '', '', '', '', 0, 1, 6, '2020-04-08 05:09:26', 0);
+(14, 'Admin Groups', 'ti-layers-alt', 'admin/users/groups', '', '', '', '', 0, 1, 6, '2020-04-08 05:09:26', 0),
+(28, 'Member', 'fa-user', '', '', '', '', '', 1, 1, 2, '2022-05-18 06:42:11', 0),
+(29, 'List Member', '', 'member/list-member', '', '', '', '', 0, 1, 28, '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `groups`
+-- Table structure for table `groups`
 --
 
 CREATE TABLE `groups` (
@@ -68,7 +71,7 @@ CREATE TABLE `groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `groups`
+-- Dumping data for table `groups`
 --
 
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
@@ -78,7 +81,7 @@ INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `login_attempts`
+-- Table structure for table `login_attempts`
 --
 
 CREATE TABLE `login_attempts` (
@@ -89,17 +92,16 @@ CREATE TABLE `login_attempts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `login_attempts`
+-- Dumping data for table `login_attempts`
 --
 
 INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
-(3, '::1', 'leon', 1592885216),
-(4, '::1', 'leon', 1592885229);
+(5, '127.0.0.1', 'admin@k24.com', 1652848152);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `log_user`
+-- Table structure for table `log_user`
 --
 
 CREATE TABLE `log_user` (
@@ -114,7 +116,27 @@ CREATE TABLE `log_user` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pageviews`
+-- Table structure for table `member`
+--
+
+CREATE TABLE `member` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(250) NOT NULL,
+  `password` varchar(250) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `tgl_lahir` date NOT NULL,
+  `email` varchar(250) NOT NULL,
+  `nik` varchar(50) NOT NULL,
+  `foto` varchar(150) NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `status` tinyint(4) NOT NULL,
+  `status_online` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pageviews`
 --
 
 CREATE TABLE `pageviews` (
@@ -127,7 +149,7 @@ CREATE TABLE `pageviews` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `pageviews`
+-- Dumping data for table `pageviews`
 --
 
 INSERT INTO `pageviews` (`id`, `content_id`, `type`, `viewer`, `date_created`, `date_updated`) VALUES
@@ -189,7 +211,7 @@ INSERT INTO `pageviews` (`id`, `content_id`, `type`, `viewer`, `date_created`, `
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -215,19 +237,16 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$12$9Ic7MVAwIJf5mlAyxVPCXe.s9098QlX3h5f6YUV48kuSe9Az54ahO', '', 'admin@admin.com', '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1586575787, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-(2, '::1', 'content', '$2y$08$T5raJzQxB8aqxBQPEAFzWOBuPJ5UPAebMHyqFcMsJEjBbSIfy62my', NULL, 'content@mocoplus.com', NULL, NULL, NULL, NULL, NULL, 'Km/Ln4Nc8TrEwCURH1.NI.', 1536384796, 1541141503, 1, 'Content', 'Sexed', 'Mocoplus', ''),
-(3, '127.0.0.1', 'mooi', '$2y$12$hdVO39/cFntK1gW4czj8mebLIVyzjZjsLcVVzs4PC0Psjao2eduay', '', 'admin@mooi.com', '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1592969820, 1, 'Admin', 'Mooi', 'ADMIN', '0'),
-(4, '127.0.0.1', 'leon', '$2y$10$f6eibIh0SZ1uINp7fEhi6eR.QG8XEfAdGe8VxlSQGpOR6qIjTrUMi', NULL, 'leonard@mocoplus.com', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1586580381, 1, 'leon', 'ferdian', 'admin', '0');
+(1, '127.0.0.1', 'administrator', '$2y$12$7VM5.sPDXhwMBSDlS5n41uwTM0Ul8CGskeruYWFD/MKILOBxFO67m', '', 'admin@admin.com', '', NULL, NULL, NULL, '27809bb5efbf6aa15506ce38fd4ca7cf9040d765', '$2y$10$IblrlU5uRoVtqfuQ76HIR.pbE4dPChNmU', 1268889823, 1652866741, 1, 'Admin', 'istrator', 'ADMIN', '0');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users_groups`
+-- Table structure for table `users_groups`
 --
 
 CREATE TABLE `users_groups` (
@@ -237,7 +256,7 @@ CREATE TABLE `users_groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `users_groups`
+-- Dumping data for table `users_groups`
 --
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
@@ -245,39 +264,46 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 1, 1),
 (2, 2, 2),
 (3, 3, 1),
-(4, 4, 1);
+(4, 5, 1),
+(13, 6, 1);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `admin_menus`
+-- Indexes for table `admin_menus`
 --
 ALTER TABLE `admin_menus`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `groups`
+-- Indexes for table `groups`
 --
 ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `login_attempts`
+-- Indexes for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `log_user`
+-- Indexes for table `log_user`
 --
 ALTER TABLE `log_user`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Server` (`ip_address`);
 
 --
--- Indeks untuk tabel `pageviews`
+-- Indexes for table `member`
+--
+ALTER TABLE `member`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pageviews`
 --
 ALTER TABLE `pageviews`
   ADD PRIMARY KEY (`id`),
@@ -286,13 +312,13 @@ ALTER TABLE `pageviews`
   ADD KEY `content_id` (`content_id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `users_groups`
+-- Indexes for table `users_groups`
 --
 ALTER TABLE `users_groups`
   ADD PRIMARY KEY (`id`),
@@ -301,50 +327,56 @@ ALTER TABLE `users_groups`
   ADD KEY `fk_users_groups_groups1_idx` (`group_id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `admin_menus`
+-- AUTO_INCREMENT for table `admin_menus`
 --
 ALTER TABLE `admin_menus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
--- AUTO_INCREMENT untuk tabel `groups`
+-- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
   MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `login_attempts`
+-- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `log_user`
+-- AUTO_INCREMENT for table `log_user`
 --
 ALTER TABLE `log_user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `pageviews`
+-- AUTO_INCREMENT for table `member`
+--
+ALTER TABLE `member`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pageviews`
 --
 ALTER TABLE `pageviews`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `users_groups`
+-- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

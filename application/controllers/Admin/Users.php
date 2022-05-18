@@ -10,22 +10,22 @@ class Users extends MY_Controller
         parent::__construct();
         $this->load->model('Users_model');
 
-        // if (!$this->ion_auth->logged_in())
-		// {
-		// 	// redirect them to the login page
-		// 	redirect('onlyus/login', 'refresh');
-        // }
-        // else if (!$this->ion_auth->is_admin())
-        // {
-        //     return show_error('You must be an administrator to access this page.');
-        // }
+        if (!$this->ion_auth->logged_in())
+		{
+			// redirect them to the login page
+			redirect('./login', 'refresh');
+        }
+        else if (!$this->ion_auth->is_admin())
+        {
+            return show_error('You must be an administrator to access this page.');
+        }
     }
 
     public function index()
     {
 		$users = $this->Users_model->select_users();
         $data = [
-            'parent_title' => 'Users Backend',
+            'parent_title' => 'Users',
             'page_title' => 'Admin Users',
 			'users' => $users
         ];
@@ -43,43 +43,20 @@ class Users extends MY_Controller
         $search = isset($_GET['search']['value']) ? $_GET['search']['value'] : '';
 
         $total = 0;
-        $query = $this->db->query("SELECT COUNT(*) as total FROM admin_menus");
+        $query = $this->db->query("SELECT COUNT(*) as total FROM users");
         $row = $query->row();
         if (isset($row)) $total = $row->total;
-
-        $columns = array(
-            0=> 'id', 
-            1=> 'first_name', 
-            2=> 'last_name', 
-            3=> 'email'
-        );
-        $orders = isset($_GET['order']) ? $_GET['order'] : array();
-        $orderBy = array();
-        if ($orders)
-        {
-            foreach ($orders as $k=>$v)
-            {
-                $col = $v['column'];
-                $dir = $v['dir'];
-                if (isset($columns[$col]))
-                {
-                    $orderBy[] = $columns[$col]." ".$dir;
-                }
-            }
-        }
         
         $total_filter = $total;
         $data = array();
-        $strOrder = $orderBy ? 'ORDER BY '.implode(", ", $orderBy) : 'ORDER BY id DESC';
-        $qs = $this->db->query("SELECT * FROM users $strOrder LIMIT $start, $length");
+        $qs = $this->db->query("SELECT * FROM users LIMIT $start, $length");
         foreach($qs->result_array() as $row)
         {
             $status = $row['active'] ? '<span class="label label-success">active</span>' : '<span class="label label-default">disabled</span>';
             $url_edit = site_url('admin/users/edit/'.$row['id']);
             $url_del = site_url('admin/users/del/'.$row['id']);
             
-            $action = '<div class="btn-group pull-right"> <a href="'.$url_edit.'" class="btn btn-default btn-xs btnEdit">Edit</a> <a href="'.$url_del.'" class="btn btn-danger btn-xs btnRemove">del</a> </div>';
-            $groups = array();
+            $action = '<div class="btn-group"> <a href="'.$url_edit.'" class="btn btn-default btn-xs btnEdit">Edit</a> <a href="'.$url_del.'" class="btn btn-danger btn-xs btnRemove">del</a> </div>';
             foreach ($this->ion_auth->get_users_groups($row['id'])->result() as $line) $groups[] = $line->name;
             $data[] = array(
                 'id' => $row['id'],
@@ -108,40 +85,19 @@ class Users extends MY_Controller
     {
         $response = [];
         $draw = isset($_GET['draw']) ? intval($_GET['draw']) : 1;
-        $length = isset($_GET['length']) ? intval($_GET['length']) : 25;
+        $length = isset($_GET['length']) ? intval($_GET['length']) : 100000;
         $orders = isset($_GET['order']) ? $_GET['order'] : array();
         $start = isset($_GET['start']) ? intval($_GET['start']) : 0;
         $search = isset($_GET['search']['value']) ? $_GET['search']['value'] : '';
 
         $total = 0;
-        $query = $this->db->query("SELECT COUNT(*) as total FROM admin_menus");
+        $query = $this->db->query("SELECT COUNT(*) as total FROM groups");
         $row = $query->row();
         if (isset($row)) $total = $row->total;
-
-        $columns = array(
-            0=> 'id', 
-            1=> 'name', 
-            2=> 'description', 
-        );
-        $orders = isset($_GET['order']) ? $_GET['order'] : array();
-        $orderBy = array();
-        if ($orders)
-        {
-            foreach ($orders as $k=>$v)
-            {
-                $col = $v['column'];
-                $dir = $v['dir'];
-                if (isset($columns[$col]))
-                {
-                    $orderBy[] = $columns[$col]." ".$dir;
-                }
-            }
-        }
         
         $total_filter = $total;
         $data = array();
-        $strOrder = $orderBy ? 'ORDER BY '.implode(", ", $orderBy) : 'ORDER BY id DESC';
-        $qs = $this->db->query("SELECT * FROM groups $strOrder LIMIT $start, $length");
+        $qs = $this->db->query("SELECT * FROM groups ORDER BY id DESC LIMIT $start, $length");
         foreach($qs->result_array() as $row)
         {
             $url_edit = site_url('admin/users/groups/edit/'.$row['id']);
@@ -157,7 +113,7 @@ class Users extends MY_Controller
                 'action' => $action
             );
         }
-
+        
         $response = [
             'data' => $data,
             'draw' => $draw,
@@ -192,6 +148,25 @@ class Users extends MY_Controller
 
         $this->session->set_flashdata('error', 'Invalid edit users url.');
         redirect('admin/users');
+    }
+
+    public function delete()
+    {
+        $id = intval($this->uri->segment(4,0));
+        $id = intval($id);
+
+        if (!$id)
+        {
+            $this->session->set_flashdata('error', 'Invalid delete url!');
+            redirect('admin/users');
+        }
+
+        if ($id)
+        {
+            $sql = "DELETE FROM users WHERE id = $id";
+            $this->db->query($sql);
+            redirect('admin/users');
+        }
     }
 
     public function del()
@@ -340,6 +315,7 @@ class Users extends MY_Controller
             $active = isset($_POST['active'])? intval($_POST['active']) : 0;
 
             $password = $this->input->post('password');
+            $encrypted_password = $this->ion_auth->hash_password($password);
             $len = strlen($password);
             if (!$user_id && !$password)
             {
@@ -363,7 +339,9 @@ class Users extends MY_Controller
             if (!count($errors))
             {
 				$data = array(
+                    'ip_address' => '127.0.0.1',
                     'username' => $username,
+                    'password' => $encrypted_password,
 					'first_name' => $first_name,
 					'last_name' => $last_name,
 					'company' => $company,
@@ -375,17 +353,19 @@ class Users extends MY_Controller
 				
                 if ($user_id)
                 {
-					$data['ip_address'] = '127.0.0.1';
-					$data['password'] = $this->ion_auth->hash_password($password);
                     $arUpdate = array();
                     foreach($data as $k=>$v) $arUpdate[] = " $k='$v'";
                     $sql = "UPDATE users SET ".implode(',', $arUpdate)." WHERE id=".$user_id." LIMIT 1";
+                    $this->db->query($sql);
                 }
                 else
                 {
                     $sql = "INSERT INTO users (".implode(',', array_keys($data)).") VALUES ('".implode("','", array_values($data))."')";
+                    $this->db->query($sql);
+                    $id_user = $this->db->insert_id();
+                    $sql_group = "INSERT INTO users_groups (user_id, group_id) VALUES (".$id_user.",'1')";
+                    $this->db->query($sql_group);
                 }
-				$this->db->query($sql);
                 redirect('admin/users');
             }
             
@@ -561,10 +541,49 @@ class Users extends MY_Controller
 
     private function _assets()
     {
-		$this->add_js(site_url('assets/mooi.js'));
         $this->add_css(site_url('assets/vendor/iCheck/all.css'));
         $this->add_js(site_url('assets/vendor/iCheck/icheck.min.js'));
-
         $this->add_js(site_url('assets/js/pages/admin_users.js'));
+
+        $this->add_css(site_url('assets/vendor/fontawesome-picker/css/fontawesome-iconpicker.min.css'));
+        $this->add_js(site_url('assets/vendor/fontawesome-picker/js/fontawesome-iconpicker.min.js'));
+        $this->add_css(site_url('assets/vendor/fontawesome-picker/css/fontawesome-iconpicker.css'));
+        $this->add_js(site_url('assets/vendor/fontawesome-picker/js/fontawesome-iconpicker.js'));
+        $this->add_css(site_url('assets/vendor/fontawesome-5.3.1/css/fontawesome.min.css'));
+        $this->add_js(site_url('assets/vendor/fontawesome-5.3.1/js/fontawesome.min.js'));
+        $this->add_css(site_url('assets/vendor/bootstrap-treeview/bootstrap-treeview.min.css'));
+        $this->add_js(site_url('assets/vendor/bootstrap-treeview/bootstrap-treeview.min.js'));
+        #vendor template
+        $this->add_css(site_url('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css'));
+		$this->add_css(site_url('assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css'));
+		$this->add_css(site_url('assets/vendor/bootstrap-timepicker/css/bootstrap-timepicker.css'));
+		$this->add_css(site_url('assets/vendor/dropzone/css/basic.css'));
+		$this->add_css(site_url('assets/vendor/dropzone/css/dropzone.css'));
+		$this->add_css(site_url('assets/vendor/bootstrap-markdown/css/bootstrap-markdown.min.css'));
+		$this->add_css(site_url('assets/vendor/summernote/summernote.css'));
+		$this->add_css(site_url('assets/vendor/summernote/summernote-bs3.css'));
+		$this->add_css(site_url('assets/vendor/codemirror/lib/codemirror.css'));
+		$this->add_css(site_url('assets/vendor/codemirror/theme/monokai.css'));
+        $this->add_js(site_url('assets/vendor/jquery-maskedinput/jquery.maskedinput.js'));
+		$this->add_js(site_url('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js'));
+		$this->add_js(site_url('assets/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.js'));
+		$this->add_js(site_url('assets/vendor/bootstrap-timepicker/js/bootstrap-timepicker.js'));
+		$this->add_js(site_url('assets/vendor/fuelux/js/spinner.js'));
+		$this->add_js(site_url('assets/vendor/dropzone/dropzone.js'));
+		$this->add_js(site_url('assets/vendor/bootstrap-markdown/js/markdown.js'));
+		$this->add_js(site_url('assets/vendor/bootstrap-markdown/js/to-markdown.js'));
+		$this->add_js(site_url('assets/vendor/bootstrap-markdown/js/bootstrap-markdown.js'));
+		$this->add_js(site_url('assets/vendor/codemirror/lib/codemirror.js'));
+		$this->add_js(site_url('assets/vendor/codemirror/addon/selection/active-line.js'));
+		$this->add_js(site_url('assets/vendor/codemirror/addon/edit/matchbrackets.js'));
+		$this->add_js(site_url('assets/vendor/codemirror/mode/javascript/javascript.js'));
+		$this->add_js(site_url('assets/vendor/codemirror/mode/xml/xml.js'));
+		$this->add_js(site_url('assets/vendor/codemirror/mode/htmlmixed/htmlmixed.js'));
+		$this->add_js(site_url('assets/vendor/codemirror/mode/css/css.js'));
+		$this->add_js(site_url('assets/vendor/summernote/summernote.js'));
+		$this->add_js(site_url('assets/vendor/bootstrap-maxlength/bootstrap-maxlength.js'));
+        $this->add_js(site_url('assets/vendor/ios7-switch/ios7-switch.js'));
+        $this->add_css(site_url('assets/vendor/pnotify/pnotify.custom.css'));
+        $this->add_js(site_url('assets/vendor/pnotify/pnotify.custom.js'));
     }
 }

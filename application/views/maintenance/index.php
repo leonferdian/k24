@@ -14,17 +14,13 @@
 
             <header class="site-header">
                <div class="logo">
-               	<a href="index.html">Creative Digiads</a>
+               	<a href="index.html">Agendaku</a>
                </div> 
             </header>
 
             <div id="main-content" class="twelve columns">
 
                <h1>Our website is almost ready.</h1>
-
-               <p> Lorem ipsum dolor sit amet, consectetuer adipiscing. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, 
-                  lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit.
-               </p>
 
                <hr>
 
@@ -55,7 +51,7 @@
             <div class="modal-toggles">
                <ul>
                     <li class="about-us"><a href="#mod-about">More about us</a></li>
-                    <li class="location"><a href="#mod-map">Our Location</a></li>
+                    <!--<li class="location"><a href="#mod-map">Our Location</a></li>-->
                </ul>
             </div><!-- /modal-toggles --> 	
             
@@ -91,30 +87,19 @@
 		<div class="row about-content">
 							
 			<div class="six columns mob-whole">
-				<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
-				eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. 
-				</p>
-
-				<p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, 
-				lorem quis bibendum auctor, natus error sit voluptatem accusantium nisi elit et quasi architecto beatae vitae dicta sunt explicabo.
-				</p>
+				<p>Are you ready to the next level of your business?<br>
+               Let's join us, advertise your business and grow up your revenue.
+               Creative Digiads is ready to promote your business profile. 
+            </p>
 			</div>
 
 			<div class="six columns mob-whole contact">
 			
 			   <h3>Contact Numbers:</h3>
-			   <p>Phone: (000) 555 1212<br>
-			    	Mobile: (000) 555 0100<br>
-			     	Fax: (000) 555 0101</p>
+			   <p>+6281233399750</p>
 
 			   <h3>Email:</h3>
-			   <p>UzumakiNaruto@yoursite.com<br>
-			  	HarunoSakura@yoursite.com
-			   </p>
-
-			   <h3>Address:</h3>
-			   <p>5th Avenue, Fort Bonifacio, Taguig<br>
-				Metro Manila, Philippines 
+			   <p>admin@creativedigiads.com<br>
 			   </p>
 
 			</div>            
@@ -126,10 +111,6 @@
 		   <hr>
 
 		   <ul id="owl-slider" class="owl-carousel">
-           	<li class="item s-photography">
-              	<span class="slider-icon"></span>
-              	<p>Photography</p>
-           	</li>
            	<li class="item s-digital-media">
               	<span class="slider-icon"></span>
               	<p>Digital Media</p>
@@ -137,10 +118,6 @@
             <li class="item s-marketing">
               	<span class="slider-icon"></span>
               	<p>Marketing</p>
-            </li>
-            <li class="item s-packaging">
-              	<span class="slider-icon"></span>
-              	<p>Packaging</p>    
             </li>
             <li class="item s-videography">
               	<span class="slider-icon"></span>
@@ -177,8 +154,6 @@
 		<div id="map-zoom-out"></div>
       
       <address>
-	      5th Avenue, Fort Bonifacio <br>
-			Taguig, Metro Manila, Philippines
       </address> 
 
    </section><!-- /mod-about -->
