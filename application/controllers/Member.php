@@ -119,7 +119,7 @@ class Member extends MY_Controller
 		if (!isset($_SESSION['id_user'])) {
 			redirect('member/login');
 		}
-		
+
 		$data = [
 			'page_title' => 'Dashboard',
 			'parent_title' => ''
@@ -211,7 +211,6 @@ class Member extends MY_Controller
 
 	public function register()
 	{
-
 		if (count($_POST)) {
 			$nama = isset($_POST['nama']) ? trim($_POST['nama']) : '';
 			$password = isset($_POST['password']) ? md5("user" . sha1(trim($_POST['password'])) . "k24") : '';
@@ -237,12 +236,16 @@ class Member extends MY_Controller
 
 
 			if ($_POST['password'] == $_POST['pwd_confirm']) {
-				if (move_uploaded_file($foto, 'images/avatar/' . $nama_foto)) {
-					$sql = "INSERT INTO member (" . implode(',', array_keys($data)) . ") VALUES ('" . implode("','", array_values($data)) . "')";
-					$this->db->query($sql);
-					echo "Register success, click ok to login";
+				if ($_FILES['foto']['size'] < 1048576) {
+					if (move_uploaded_file($foto, 'images/avatar/' . $nama_foto)) {
+						$sql = "INSERT INTO member (" . implode(',', array_keys($data)) . ") VALUES ('" . implode("','", array_values($data)) . "')";
+						$this->db->query($sql);
+						echo "Register success, click ok to login";
+					} else {
+						echo "Gagal upload file";
+					}
 				} else {
-					echo "Gagal upload file";
+					echo "Ukuran Foto tidak boleh lebih besar dari 1MB!";
 				}
 			} else {
 				echo "Password and confirm doesn't match!";
@@ -316,14 +319,18 @@ class Member extends MY_Controller
 
 
 			if ($_POST['size'] > 0) {
-				if (move_uploaded_file($foto, 'images/avatar/' . $nama_foto)) {
-					$arUpdate = array();
-					foreach($data as $k=>$v) $arUpdate[] = " $k='$v'";
-					$sql = "UPDATE member SET ".implode(',', $arUpdate)." WHERE email = ".$_POST['email']." LIMIT 1";
-					$this->db->query($sql);
-					echo "Sukses update";
+				if ($_FILES['foto']['size'] < 1048576) {
+					if (move_uploaded_file($foto, 'images/avatar/' . $nama_foto)) {
+						$arUpdate = array();
+						foreach($data as $k=>$v) $arUpdate[] = " $k='$v'";
+						$sql = "UPDATE member SET ".implode(',', $arUpdate)." WHERE email = ".$_POST['email']." LIMIT 1";
+						$this->db->query($sql);
+						echo "Sukses update";
+					} else {
+						echo "Gagal upload file";
+					}
 				} else {
-					echo "Gagal upload file";
+					echo "Ukuran Foto tidak boleh lebih besar dari 1MB!";
 				}
 			} else {
 				$arUpdate = array();
