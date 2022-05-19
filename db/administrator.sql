@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2022 at 12:26 PM
+-- Generation Time: May 19, 2022 at 12:46 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.1.11
 
@@ -56,7 +56,7 @@ INSERT INTO `admin_menus` (`id`, `title`, `icon`, `url`, `scheme`, `host`, `path
 (13, 'Admin Users', 'ti-key', 'admin/users', '', '', '', '', 0, 1, 6, '2020-04-08 05:09:26', 0),
 (14, 'Admin Groups', 'ti-layers-alt', 'admin/users/groups', '', '', '', '', 0, 1, 6, '2020-04-08 05:09:26', 0),
 (28, 'Member', 'fa-user', '', '', '', '', '', 1, 1, 2, '2022-05-18 06:42:11', 0),
-(29, 'List Member', '', 'member/list-member', '', '', '', '', 0, 1, 28, '0000-00-00 00:00:00', 0);
+(29, 'List Member', '', 'administrator/list-member', '', '', '', '', 0, 1, 28, '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -90,13 +90,6 @@ CREATE TABLE `login_attempts` (
   `login` varchar(100) NOT NULL,
   `time` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `login_attempts`
---
-
-INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
-(5, '127.0.0.1', 'admin@k24.com', 1652848152);
 
 -- --------------------------------------------------------
 
@@ -132,6 +125,13 @@ CREATE TABLE `member` (
   `status` tinyint(4) NOT NULL,
   `status_online` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `member`
+--
+
+INSERT INTO `member` (`id`, `nama`, `password`, `phone`, `tgl_lahir`, `email`, `nik`, `foto`, `gender`, `status`, `status_online`) VALUES
+(2, 'M LEONARD FERDIAN YUSUF', 'd1936cf6f184d3ce5e0f348eeb5276af', '081322254594', '1994-09-20', 'leonardoferdiano@gmail.com', '3515182009950005', 'foto-3515182009950005-1994-09-20.jpg', 'L', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -241,7 +241,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$12$7VM5.sPDXhwMBSDlS5n41uwTM0Ul8CGskeruYWFD/MKILOBxFO67m', '', 'admin@admin.com', '', NULL, NULL, NULL, '27809bb5efbf6aa15506ce38fd4ca7cf9040d765', '$2y$10$IblrlU5uRoVtqfuQ76HIR.pbE4dPChNmU', 1268889823, 1652866741, 1, 'Admin', 'istrator', 'ADMIN', '0');
+(1, '127.0.0.1', 'administrator', '$2y$12$7VM5.sPDXhwMBSDlS5n41uwTM0Ul8CGskeruYWFD/MKILOBxFO67m', '', 'admin@admin.com', '', NULL, NULL, NULL, '2ead6427a088b5d02385c7f88ebf720cb744f22d', '$2y$10$y2QTmcl5ILVH6YF.E4xZZODCjJuUcGgcq', 1268889823, 1652954404, 1, 'Admin', 'istrator', 'ADMIN', '0');
 
 -- --------------------------------------------------------
 
@@ -358,7 +358,7 @@ ALTER TABLE `log_user`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pageviews`

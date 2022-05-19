@@ -24,6 +24,42 @@ class Administrator extends MY_Controller
 		$this->render($data);
 	}
 
+    public function list_member()
+	{
+		$data = [
+			'page_title' => 'List Member',
+			'parent_title' => ''
+		];
+
+		$this->_assets();
+		$this->render($data, 'administrator/list_member');
+	}
+
+    public function profile_member($email = "")
+	{
+		$query = $this->db->query("select * from member where email = '" . $email . "'");
+		$qs = $query->result();
+		$row_data = [];
+		foreach ($qs as $row) {
+			$row_data['nama'] = $row->nama;
+			$row_data['id_user'] = $row->id;
+			$row_data['phone'] = $row->phone;
+			$row_data['tgl_lahir'] = $row->tgl_lahir;
+			$row_data['email'] = $row->email;
+			$row_data['nik'] = $row->nik;
+			$row_data['foto'] = $row->foto;
+			$row_data['gender'] = $row->gender;
+		}
+
+		$data = [
+			'page_title' => 'Profile',
+			'parent_title' => 'Member',
+			'row_data' => $row_data
+		];
+
+		$this->_assets();
+		$this->render($data, 'administrator/profile');
+	}
 
 	public function listdata($table)
     {

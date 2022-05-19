@@ -1,218 +1,246 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-   <?php $this->load->view('_partials/front_page/member/head');?>
-  
-  <!--[if lt IE 9]>
-   	<p class="browserupgrade">You are using an <strong>outdated</strong> browser. 
-   	Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-   <![endif]-->   
+<!doctype html>
+<html class="fixed">
 
-   <!-- content-wrap -->
-   <style>
-      .form-control {
-         width: -webkit-fill-available;
-      }
-   </style>
-   <div id="content-wrap">
+<head>
 
-      <!-- main  -->
-      <main class="row">
+   <!-- Basic -->
+   <meta charset="UTF-8">
 
-            <header class="site-header">
-               <!-- <div class="logo">
-               	<a href="index.html"></a>
-               </div>  -->
-            </header>
+   <title><?php echo $page_title; ?></title>
+   <meta name="keywords" content="HTML5 Admin Template" />
+   <meta name="description" content="Porto Admin - Responsive HTML5 Template">
+   <meta name="author" content="okler.net">
 
-            <div id="main-content" class="twelve columns">
+   <!-- Mobile Metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-               <h1>Register</h1>
+   <!-- Web Fonts  -->
+   <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
 
-               <hr>
+   <!-- Vendor CSS -->
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/bootstrap/css/bootstrap.css'); ?>" />
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/font-awesome/css/font-awesome.css'); ?>" />
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/magnific-popup/magnific-popup.css'); ?>" />
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/bootstrap-datepicker/css/datepicker3.css'); ?>" />
 
-               <!-- <div id="counter" class="group">
-                  <span>134 <em>days</em></span> 
-                  <span>12 <em>hours</em></span>
-                  <span>50 <em>minutes</em></span>
-                  <span>33 <em>seconds</em></span> 
-               </div>                   -->
+   <!-- Specific Page Vendor CSS -->
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css'); ?>" />
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/select2/select2.css'); ?>" />
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css'); ?>" />
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css'); ?>" />
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css'); ?>" />
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/bootstrap-timepicker/css/bootstrap-timepicker.css'); ?>" />
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/dropzone/css/basic.css'); ?>" />
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/dropzone/css/dropzone.css'); ?>" />
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/bootstrap-markdown/css/bootstrap-markdown.min.css'); ?>" />
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/summernote/summernote.css'); ?>" />
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/summernote/summernote-bs3.css'); ?>" />
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/codemirror/lib/codemirror.css'); ?>" />
+   <link rel="stylesheet" href="<?php echo site_url('assets/vendor/codemirror/theme/monokai.css'); ?>" />
 
-               <!-- MailChimp Signup Form -->
-               <div id="mc-signup">
+   <!-- Theme CSS -->
+   <link rel="stylesheet" href="<?php echo site_url('assets/stylesheets/theme.css'); ?>" />
 
-                  <?php echo form_open('member/register', array('class'=>'form-horizontal form-bordered', 'id'=>'submit_form'));?>
-                     <div class="form-group">
-                        <input type="text" value="" style="background-color: seashell;" name="nama" class="form-control" id="nama" placeholder="Nama..." required>
+   <!-- Skin CSS -->
+   <link rel="stylesheet" href="<?php echo site_url('assets/stylesheets/skins/default.css'); ?>" />
+
+   <!-- Theme Custom CSS -->
+   <link rel="stylesheet" href="<?php echo site_url('assets/stylesheets/theme-custom.css'); ?>">
+
+   <!-- Head Libs -->
+   <script src="<?php echo site_url('assets/vendor/modernizr/modernizr.js'); ?>"></script>
+
+</head>
+
+<body>
+   <!-- start: page -->
+   <section class="body-sign">
+      <div class="center-sign">
+         <!-- <a href="/" class="logo pull-left">
+            <img src="assets/images/logo.png" height="54" alt="Porto Admin" />
+         </a> -->
+
+         <div class="panel panel-sign">
+            <div class="panel-title-sign mt-xl text-right">
+               <h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Register</h2>
+            </div>
+            <div class="panel-body">
+               <?php #echo form_open('member/register', array('class' => 'form-horizontal form-bordered', 'id' => 'submit_form')); ?>
+               <div class="form-group mb-lg">
+                  <label>Nama</label>
+                  <input name="nama" id="nama" type="text" class="form-control input-lg" required />
+               </div>
+
+               <div class="form-group mb-lg">
+                  <label>NIK KTP</label>
+                  <input name="nik" id="nik" type="text" class="form-control input-lg" required />
+               </div>
+
+               <div class="form-group mb-lg">
+                  <label>E-mail Address</label>
+                  <input name="email" id="email" type="email" class="form-control input-lg" required />
+               </div>
+
+               <div class="form-group mb-none">
+                  <div class="row">
+                     <div class="col-sm-6 mb-lg">
+                        <label>Password</label>
+                        <input name="password" id="password" type="password" class="form-control input-lg" required />
                      </div>
-                     <div class="form-group">
-                        <input type="password" value="" style="background-color: seashell;" name="password" class="form-control" id="password" placeholder="Password..." required>
+                     <div class="col-sm-6 mb-lg">
+                        <label>Password Confirmation</label>
+                        <input name="pwd_confirm" id="pwd_confirm" type="password" class="form-control input-lg" required />
                      </div>
-                     <div class="form-group">
-                        <input type="text" value="" style="background-color: seashell;" name="phone" class="form-control" id="phone" placeholder="No. Hp..." required>
+                  </div>
+               </div>
+
+               <div class="form-group mb-lg">
+                  <label>No. Hp</label>
+                  <input name="phone" id="phone" type="text" class="form-control input-lg" required />
+               </div>
+
+               <div class="form-group">
+                  <label class="control-label">Tanggal Lahir</label>
+                  <div class="input-group">
+                     <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                     </span>
+                     <input type="text" name="tgl_lahir" id="tgl_lahir" data-plugin-datepicker class="form-control" required>
+                  </div>
+               </div>
+
+               <div class="form-group">
+                  <label class="control-label">Jenis Kelamin</label>
+                  <select class="form-control" name="gender" id="gender" data-plugin-multiselect id="ms_example1">
+                     <option value="L">Laki- Laki</option>
+                     <option value="P">Perempuan</option>
+                  </select>
+               </div>
+
+               <div class="form-group mb-lg">
+                  <label>Upload Foto</label>
+                  <input name="foto" id="foto" type="file" class="form-control input-lg" required />
+               </div>
+
+               <div class="row">
+                  <div class="col-sm-8">
+                     <div class="checkbox-custom checkbox-default">
+                        <input id="AgreeTerms" name="agreeterms" type="checkbox" />
+                        <label for="AgreeTerms">I agree with <a href="#">terms of use</a></label>
                      </div>
-                     <div class="form-group">
-                        <input type="text" value="" style="background-color: seashell;" name="birthdate" class="form-control" id="birthdate" placeholder="Tanggal Lahir..." required>
-                     </div>
-                     <div class="form-group">
-               		   <input type="email" value="" style="background-color: seashell; width: -webkit-fill-available;" name="email" class="form-control" id="email" placeholder="Email..." required>
-                     </div>
-                     
-                     <div class="form-group">
-                        <input type="text" value="" style="background-color: seashell;" name="nik" class="form-control" id="nik" placeholder="NIK KTP..." required>
-                     </div>
-                     <div class="form-group">
-                        <select class="form-control" id="jenis_kelamin">
-                           <option value="L">Laki-Laki</option>
-                           <option value="P">Perempuan</option>
-                        </select>
-                     </div>
-                     <div class="form-group">
-                        <label style="display: flex;">Foto</label>
-                        <input type="file" style="color: seashell;" id="foto" class="form-control">
-                     </div>
-                     <!-- <label for="mce-EMAIL" class="subscribe-message"></label> -->
-                     <input type="submit" style="margin-bottom: 10px; margin-top: 10px;" value="Submit" name="btn-register" class="button">
-                  <?php echo form_close(); ?>
+                  </div>
+                  <div class="col-sm-4 text-right">
+                     <button type="submit" class="btn btn-primary hidden-xs" onclick="register()">Sign Up</button>
+                     <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign Up</button>
+                  </div>
+               </div>
 
-               </div> <!-- /sign-up form -->
+               <p class="text-center">Already have an account? <a href="<?php echo site_url('member/login'); ?>">Sign In!</a>
 
-            </div><!-- /main-content form -->
+                  <?php #echo form_close(); ?>
+            </div>
+         </div>
 
-            <div class="modal-toggles">
-               <ul>
-                    <li class="about-us"><a href="#mod-about">Login</a></li>
-                    <!--<li class="location"><a href="#mod-map">Our Location</a></li>-->
-               </ul>
-            </div><!-- /modal-toggles --> 	
-            
-      </main>	      
-
-   </div><!-- /content-wrap --> 
-    	
-
-   <!-- modals
-   =================================================== -->
-	      
-	<section id="mod-about" >
-
-	   <!-- Modal toggle -->
-	   <div class="modal-toggle">
-	      <a href="#" title="close" id="modal-close">Close</a>
-	   </div>	        	
-
-	   <div class="row about-header">
-
-			<div class="twelve columns">	
-
-			   <div class="icon-wrap">
-			      <i class="icon"></i>
-			   </div>
-
-				<h1>Login</h1>			         
-
-			</div>
-
-	   </div> <!-- /about-header -->                   	
-
-		<div class="row about-content">
-							
-			<!-- <div class="six columns mob-whole">
-				<p>Are you ready to the next level of your business?<br>
-               Let's join us, advertise your business and grow up your revenue.
-               Creative Digiads is ready to promote your business profile. 
-            </p>
-			</div>
-
-			<div class="six columns mob-whole contact">
-			
-			   <h3>Contact Numbers:</h3>
-			   <p>+6281233399750</p>
-
-			   <h3>Email:</h3>
-			   <p>admin@creativedigiads.com<br>
-			   </p>
-
-			</div>             -->
-
-            <div id="main-content" class="twelve columns">
-
-               <hr>
-
-               <!-- <div id="counter" class="group">
-                  <span>134 <em>days</em></span> 
-                  <span>12 <em>hours</em></span>
-                  <span>50 <em>minutes</em></span>
-                  <span>33 <em>seconds</em></span> 
-               </div>                   -->
-
-               <!-- MailChimp Signup Form -->
-               <div id="mc-signup">
-
-                  <form id="form-login" action="member/login">
-                     <div class="form-group">
-               		   <input type="email" value="" style="background-color: seashell; width: -webkit-fill-available;" name="email" class="form-control" id="email" placeholder="Email..." required>
-                     </div>
-                     <div class="form-group">
-                        <input type="password" value="" style="background-color: seashell;" name="password" class="form-control" id="password" placeholder="Password..." required>
-                     </div>
-                     <input type="submit" style="margin-bottom: 10px; margin-top: 10px;" value="Login" name="btn-login" class="button">
-                  </form>
-
-               </div> <!-- /sign-up form -->
-
-            </div><!-- /main-content form -->
-
-		</div> <!-- /about-content -->
-
-		<!-- <div class="slider row">
-
-		   <hr>
-
-		   <ul id="owl-slider" class="owl-carousel">
-           	<li class="item s-digital-media">
-              	<span class="slider-icon"></span>
-              	<p>Digital Media</p>
-            </li>
-            <li class="item s-marketing">
-              	<span class="slider-icon"></span>
-              	<p>Marketing</p>
-            </li>
-            <li class="item s-videography">
-              	<span class="slider-icon"></span>
-              	<p>Videography</p>
-            </li>                  	
-            <li class="item s-webdesign">
-              	<span class="slider-icon"></span>
-              	<p>Web Design</p>
-            </li>
-            <li class="item s-branding">
-               <span class="slider-icon"></span>
-               <p>Branding</p>
-            </li>
-            <li class="item s-web-development">
-              	<span class="slider-icon"></span>
-              	<p>Web Development</p>
-            </li>
-         </ul>
-
-		</div> -->
-      <!-- /slider -->			      
-
-   </section><!-- /mod-about -->
-
-   <section id="mod-map" >
-
-      <!-- Modal toggle -->
-      <div class="modal-toggle">
-         <a href="#" title="close" id="modal-close"><span>Close</span></a>
       </div>
+   </section>
+   <!-- end: page -->
 
-      <div id="map-container"></div>
+   <script>
+      function register() {
+         var fd = new FormData();
 
-      <div id="map-zoom-in"></div>
-		<div id="map-zoom-out"></div>
-      
-      <address>
-      </address> 
+         var nama = $('#nama').val();
+         fd.append('nama', nama);
 
-   </section><!-- /mod-about -->
-   <?php $this->load->view('_partials/front_page/member/foot');?>
+         var nik = $('#nik').val();
+         fd.append('nik', nik);
+
+         var email = $('#email').val();
+         fd.append('email', email);
+
+         var password = $('#password').val();
+         fd.append('password', password);
+
+         var pwd_confirm = $('#pwd_confirm').val();
+         fd.append('pwd_confirm', pwd_confirm);
+
+         var phone = $('#phone').val();
+         fd.append('phone', phone);
+
+         var tgl_lahir = $('#tgl_lahir').val();
+         fd.append('tgl_lahir', tgl_lahir);
+
+         var gender = $('#gender').val();
+         fd.append('gender', gender);
+
+         var foto = $('#foto').get(0).files[0];
+         fd.append('foto', foto);
+
+         $.ajax({
+            type: "POST",
+            processData: false, //important
+            contentType: false, //important
+            url: "member/register",
+            data: fd,
+            success: function(responseText) {
+               alert(responseText);
+               location.href="member/login";
+            },
+            error: function(data) {
+               alert(data);
+               $("#progress1").hide();
+            }
+         });
+      }
+   </script>
+
+   <!-- Vendor -->
+   <script src="<?php echo site_url('assets/vendor/jquery/jquery.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/bootstrap/js/bootstrap.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/nanoscroller/nanoscroller.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/magnific-popup/magnific-popup.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/jquery-placeholder/jquery.placeholder.js'); ?>"></script>
+
+   <!-- Specific Page Vendor -->
+   <script src="<?php echo site_url('assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/select2/select2.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/jquery-maskedinput/jquery.maskedinput.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/bootstrap-timepicker/js/bootstrap-timepicker.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/fuelux/js/spinner.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/dropzone/dropzone.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/bootstrap-markdown/js/markdown.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/bootstrap-markdown/js/to-markdown.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/bootstrap-markdown/js/bootstrap-markdown.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/codemirror/lib/codemirror.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/codemirror/addon/selection/active-line.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/codemirror/addon/edit/matchbrackets.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/codemirror/mode/javascript/javascript.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/codemirror/mode/xml/xml.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/codemirror/mode/htmlmixed/htmlmixed.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/codemirror/mode/css/css.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/summernote/summernote.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/bootstrap-maxlength/bootstrap-maxlength.js'); ?>"></script>
+   <script src="<?php echo site_url('assets/vendor/ios7-switch/ios7-switch.js'); ?>"></script>
+
+   <!-- Theme Base, Components and Settings -->
+   <script src="<?php echo site_url('assets/javascripts/theme.js'); ?>"></script>
+
+   <!-- Theme Custom -->
+   <script src="<?php echo site_url('assets/javascripts/theme.custom.js'); ?>"></script>
+
+   <!-- Theme Initialization Files -->
+   <script src="<?php echo site_url('assets/javascripts/theme.init.js'); ?>"></script>
+
+
+   <!-- Examples -->
+   <script src="<?php echo site_url('assets/javascripts/forms/examples.advanced.form.js'); ?>"></script>
+
+</body>
+
+</html>

@@ -83,10 +83,10 @@
             <div id="userbox" class="userbox">
                <a href="#" data-toggle="dropdown">
                   <figure class="profile-picture">
-                     <img src="<?php echo site_url('images/avatar/' . $_SESSION['foto']); ?>" alt="Joseph Doe" class="img-circle" data-lock-picture="<?php echo site_url('images/avatar/' . $_SESSION['foto']); ?>" />
+                     <img src="<?php echo site_url('assets/images/!logged-user.jpg'); ?>" alt="Joseph Doe" class="img-circle" data-lock-picture="<?php echo site_url('assets/images/!logged-user.jpg'); ?>" />
                   </figure>
                   <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-                     <span class="name"><?php echo $_SESSION['nama']; ?></span>
+                     <span class="name"><?php echo $this->session->userdata( 'username' ); ?></span>
                      <span class="role">member</span>
                   </div>
 
@@ -96,14 +96,14 @@
                <div class="dropdown-menu">
                   <ul class="list-unstyled">
                      <li class="divider"></li>
-                     <li>
-                        <a role="menuitem" tabindex="-1" href="<?php echo site_url('member/profile') ?>"><i class="fa fa-user"></i> My Profile</a>
-                     </li>
+                     <!-- <li>
+                        <a role="menuitem" tabindex="-1" href=""><i class="fa fa-user"></i> My Profile</a>
+                     </li> -->
                      <!-- <li>
 									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
 								</li> -->
                      <li>
-                        <a role="menuitem" tabindex="-1" href="<?php echo site_url('member/logout/'.$_SESSION['email']) ?>"><i class="fa fa-power-off"></i> Logout</a>
+                        <a role="menuitem" tabindex="-1" href="<?php echo site_url('logout') ?>"><i class="fa fa-power-off"></i> Logout</a>
                      </li>
                   </ul>
                </div>
@@ -131,7 +131,7 @@
                   <nav id="menu" class="nav-main" role="navigation">
                      <ul class="nav nav-main">
                         <li>
-                           <a href="<?php echo site_url('member/dashboard') ?>">
+                           <a href="<?php echo site_url('administrator') ?>">
                               <i class="fa fa-home" aria-hidden="true"></i>
                               <span>Dashboard</span>
                            </a>
