@@ -11,11 +11,6 @@ class Member extends MY_Controller
 
 	public function index()
 	{
-
-		if (!isset($_SESSION['id_user'])) {
-			redirect('member/login');
-		}
-
 		$data = [
 			'page_title' => 'Register Member',
 			'parent_title' => ''
@@ -129,6 +124,21 @@ class Member extends MY_Controller
 		$this->render($data, 'member/list_member');
 	}
 
+	public function list_data_member() 
+	{
+		if (!isset($_SESSION['id_user'])) {
+			redirect('member/login');
+		}
+
+		$data = [
+			'page_title' => 'List Data Member (JSON)',
+			'parent_title' => ''
+		];
+
+		$this->_assets();
+		$this->render($data, 'member/list_data_member');
+	}
+
 	public function list_user_active()
 	{
 		$response = [];
@@ -209,6 +219,48 @@ class Member extends MY_Controller
 		$this->render_json($response);
 	}
 
+	public function list_all_member()
+	{
+		$response = [];
+		$draw = isset($_GET['draw']) ? intval($_GET['draw']) : 1;
+		$length = isset($_GET['length']) ? intval($_GET['length']) : 100000;
+		$orders = isset($_GET['order']) ? $_GET['order'] : array();
+		$start = isset($_GET['start']) ? intval($_GET['start']) : 0;
+		$search = isset($_GET['search']['value']) ? $_GET['search']['value'] : '';
+
+		$total = 0;
+		$query = $this->db->query("SELECT COUNT(*) as total FROM member order by nama");
+		$row = $query->row();
+		if (isset($row)) $total = $row->total;
+
+		$total_filter = $total;
+		$data = array();
+		$qs = $this->db->query("SELECT * FROM member order by nama LIMIT $start, $length");
+		$no = 1;
+		foreach ($qs->result_array() as $row) {
+			$data[] = array(
+				$no,
+				$row['nama'],
+				$row['phone'],
+				$row['tgl_lahir'],
+				$row['email'],
+				$row['nik'],
+				$row['gender'],
+				$row['status']
+			);
+			$no++;
+		}
+		$response = [
+			'data' => $data,
+			'draw' => $draw,
+			'length' => $length,
+			'recordsTotal' => $total,
+			'recordsFiltered' => $total_filter
+		];
+
+		$this->render_json($response);
+	}
+
 	public function register()
 	{
 		if (count($_POST)) {
@@ -219,7 +271,7 @@ class Member extends MY_Controller
 			$email = isset($_POST['email']) ? trim($_POST['email']) : '';
 			$nik = isset($_POST['nik']) ? trim($_POST['nik']) : '';
 			$foto = $_FILES['foto']['tmp_name'];
-			$nama_foto = 'foto-' . $nik . '-' . $tgl_lahir . '.jpg';
+			$nama_foto = 'foto-' . $nik . '-' . date("Ymd-his") . '.jpg';
 			$gender = isset($_POST['gender']) ? trim($_POST['gender']) : '';
 
 
@@ -263,7 +315,7 @@ class Member extends MY_Controller
 			$email = isset($_POST['email']) ? trim($_POST['email']) : '';
 			$nik = isset($_POST['nik']) ? trim($_POST['nik']) : '';
 			$foto = $_FILES['foto']['tmp_name'];
-			$nama_foto = 'foto-' . $nik . '-' . $tgl_lahir . '.jpg';
+			$nama_foto = 'foto-' . $nik . '-' . date("Ymd-his") . '.jpg';
 			$gender = isset($_POST['gender']) ? trim($_POST['gender']) : '';
 
 			if ($_POST['password'] == $_POST['pwd_confirm']) {
@@ -323,7 +375,7 @@ class Member extends MY_Controller
 					if (move_uploaded_file($foto, 'images/avatar/' . $nama_foto)) {
 						$arUpdate = array();
 						foreach($data as $k=>$v) $arUpdate[] = " $k='$v'";
-						$sql = "UPDATE member SET ".implode(',', $arUpdate)." WHERE email = ".$_POST['email']." LIMIT 1";
+						$sql = "UPDATE member SET ".implode(',', $arUpdate)." WHERE email = '".$_POST['email']."' LIMIT 1";
 						$this->db->query($sql);
 						echo "Sukses update";
 					} else {

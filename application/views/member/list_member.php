@@ -125,6 +125,12 @@
                                         <span>Dashboard</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="<?php echo site_url('member/list_data_member') ?>">
+                                        <i class="fa fa-home" aria-hidden="true"></i>
+                                        <span>View All User (JSON)</span>
+                                    </a>
+                                </li>
                             </ul>
                         </nav>
                     </div>

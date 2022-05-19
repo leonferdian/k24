@@ -49,6 +49,7 @@
 
    <!-- Head Libs -->
    <script src="<?php echo site_url('assets/vendor/modernizr/modernizr.js'); ?>"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
 
@@ -175,76 +176,14 @@
                      <!-- <a href="#" class="fa fa-times"></a> -->
                   </div>
 
-                  <h2 class="panel-title">Profile</h2>
+                  <h2 class="panel-title"><?php echo $page_title; ?></h2>
                </header>
                <div class="panel-body">
-                  <div class="thumb-info mb-md">
-                     <img src="<?php echo site_url('images/avatar/'.$row_data['foto']); ?>" style="width: 300px;" class="rounded img-responsive" alt="John Doe">
-                     <div class="thumb-info-title">
-                        <span class="thumb-info-inner"><?php echo $row_data['nama']; ?></span>
-                        <span class="thumb-info-type">Member</span>
-                     </div>
-                  </div>
-                  <div class="form-group mb-lg">
-                     <label>Nama</label>
-                     <input name="nama" id="nama" type="text" class="form-control input-lg" value="<?php echo $row_data['nama']; ?>" required />
-                  </div>
-
-                  <div class="form-group mb-lg">
-                     <label>NIK KTP</label>
-                     <input name="nik" id="nik" type="text" class="form-control input-lg" value="<?php echo $row_data['nik']; ?>" required />
-                  </div>
-
-                  <div class="form-group mb-lg">
-                     <label>E-mail Address</label>
-                     <input name="email" id="email" type="email" class="form-control input-lg" value="<?php echo $row_data['email']; ?>" required />
-                  </div>
-
-                  <div class="form-group mb-none">
-                     <div class="row">
-                        <div class="col-sm-6 mb-lg">
-                           <label>Password</label>
-                           <input name="password" id="password" type="password" class="form-control input-lg" required />
-                        </div>
-                        <div class="col-sm-6 mb-lg">
-                           <label>Password Confirmation</label>
-                           <input name="pwd_confirm" id="pwd_confirm" type="password" class="form-control input-lg" required />
-                        </div>
-                     </div>
-                  </div>
-
-                  <div class="form-group mb-lg">
-                     <label>No. Hp</label>
-                     <input name="phone" id="phone" type="text" class="form-control input-lg" value="<?php echo $row_data['phone']; ?>" required />
-                  </div>
-
-                  <div class="form-group">
-                     <label class="control-label">Tanggal Lahir</label>
-                     <div class="input-group">
-                        <span class="input-group-addon">
-                           <i class="fa fa-calendar"></i>
-                        </span>
-                        <input type="text" name="tgl_lahir" id="tgl_lahir" data-plugin-datepicker class="form-control" value="<?php echo $row_data['tgl_lahir']; ?>" required>
-                     </div>
-                  </div>
-
-                  <div class="form-group">
-                     <label class="control-label">Jenis Kelamin</label>
-                     <select class="form-control" name="gender" id="gender" data-plugin-multiselect id="ms_example1">
-                        <option value="L" <?php echo isset($row_data['gender']) && $row_data['gender'] == "L" ? "selected" : ""; ?>>Laki- Laki</option>
-                        <option value="P" <?php echo isset($row_data['gender']) && $row_data['gender'] == "P" ? "selected" : ""; ?>>Perempuan</option>
-                     </select>
-                  </div>
-
-                  <div class="form-group mb-lg">
-                     <label>Upload Foto</label>
-                     <input name="foto" id="foto" type="file" class="form-control input-lg" required />
-                  </div>
-
                   <div class="row">
-                     <div class="col-sm-4 text-right">
-                        <button type="submit" class="btn btn-success hidden-xs" onclick="update_profile()">Save</button>
-                        <button type="submit" class="btn btn-success btn-block btn-lg visible-xs mt-lg">Save</button>
+                     <div class="col-sm-12">
+                        <div id="view-data">
+
+                        </div>
                      </div>
                   </div>
                </div>
@@ -255,54 +194,25 @@
    </section>
 
    <script>
-      function update_profile() {
-         var fd = new FormData();
-
-         var nama = $('#nama').val();
-         fd.append('nama', nama);
-
-         var nik = $('#nik').val();
-         fd.append('nik', nik);
-
-         var email = $('#email').val();
-         fd.append('email', email);
-
-         var password = $('#password').val();
-         fd.append('password', password);
-
-         var pwd_confirm = $('#pwd_confirm').val();
-         fd.append('pwd_confirm', pwd_confirm);
-
-         var phone = $('#phone').val();
-         fd.append('phone', phone);
-
-         var tgl_lahir = $('#tgl_lahir').val();
-         fd.append('tgl_lahir', tgl_lahir);
-
-         var gender = $('#gender').val();
-         fd.append('gender', gender);
-
-         var foto = $('#foto').get(0).files[0];
-         fd.append('foto', foto);
-
-         var size = $('#foto').get(0).files.length;
-         fd.append('size', size);
-
+      $(document).ready(function() {
          $.ajax({
-            type: "POST",
-            processData: false, //important
-            contentType: false, //important
-            url: "<?php echo site_url('member/update_profile'); ?>",
-            data: fd,
+            type: "GET",
+            // processData: false, //important
+            // contentType: false, //important
+            url: "<?php echo site_url('member/list_all_member'); ?>",
+            // data: fd,
             success: function(responseText) {
-               alert(responseText);
-               // location.href = "<?php echo site_url('member/profile'); ?>";
+               $('#view-data').html(JSON.stringify(responseText));
             },
             error: function(data) {
                alert(data);
                $("#progress1").hide();
             }
          });
+      });
+
+      function view_data() {
+         
       }
    </script>
 
