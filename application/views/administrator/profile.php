@@ -249,7 +249,7 @@
    </section>
 
    <script>
-      function register() {
+      function update_profile() {
          var fd = new FormData();
 
          var nama = $('#nama').val();
