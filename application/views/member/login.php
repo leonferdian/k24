@@ -102,7 +102,7 @@
                             </div>
                             <div class="col-sm-4 text-right">
                                 <button type="submit" class="btn btn-primary hidden-xs" onclick="login()">Sign In</button>
-                                <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign In</button>
+                                <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg" onclick="login()">Sign In</button>
                             </div>
                         </div>
 

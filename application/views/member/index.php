@@ -131,7 +131,7 @@
                   </div>
                   <div class="col-sm-4 text-right">
                      <button type="submit" class="btn btn-primary hidden-xs" onclick="register()">Sign Up</button>
-                     <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign Up</button>
+                     <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg" onclick="register()">Sign Up</button>
                   </div>
                </div>
 

@@ -244,7 +244,7 @@
                   <div class="row">
                      <div class="col-sm-4 text-right">
                         <button type="submit" class="btn btn-success hidden-xs" onclick="update_profile()">Save</button>
-                        <button type="submit" class="btn btn-success btn-block btn-lg visible-xs mt-lg">Save</button>
+                        <button type="submit" class="btn btn-success btn-block btn-lg visible-xs mt-lg" onclick="update_profile()">Save</button>
                      </div>
                   </div>
                </div>
